@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "726373291721",
+    "project_id": "chat-firebase-dio-bb152",
+    "storage_bucket": "chat-firebase-dio-bb152.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726373291721:android:15d1a880f9f57baffb1f18",
+        "android_client_info": {
+          "package_name": "com.thiago.firebase_chat_dio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6I2ym2yvMPIlQwiyR_2Cwr9SKeZFGPgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
