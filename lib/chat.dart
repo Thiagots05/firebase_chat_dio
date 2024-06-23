@@ -12,7 +12,8 @@ import 'package:uuid/uuid.dart';
 
 class Chat extends StatefulWidget {
   final String nickName;
-  const Chat({super.key, required this.nickName});
+  final String idioma;
+  const Chat({super.key, required this.nickName, required this.idioma});
 
   @override
   State<Chat> createState() => _ChatState();
@@ -31,12 +32,16 @@ class _ChatState extends State<Chat> {
 
   void carregarUsuario() async{
     final prefs = await SharedPreferences.getInstance();
-    var uuid = Uuid();
+    var uuid = const Uuid();
     userId = prefs.getString('user_id')?? uuid.v4();
     setState(() {
       
     });
   }
+
+  void orderMsg(List<TextModel> msg) {
+  msg.sort((a, b) => a.dataHora.compareTo(b.dataHora));
+}
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +50,14 @@ class _ChatState extends State<Chat> {
       body: Column(
         children: [
           Expanded(child: StreamBuilder<QuerySnapshot>(
-            stream: db.collection('chats').snapshots(),
+            stream: db.collection('chats_${widget.idioma}').snapshots(),
             builder: (context, snapshot) {
               return !snapshot.hasData?const Center(child: 
               CircularProgressIndicator()):
               ListView(
                 children: snapshot.data!.docs.map(
                   (e){
+                   
                     var textModel = TextModel.fromJson(e.data() as Map<String, dynamic>);
                     return Align(
                       alignment: userId == textModel.userId?Alignment.centerRight:Alignment.topLeft,
@@ -97,7 +103,7 @@ class _ChatState extends State<Chat> {
                       userId: userId,
                       nickname: widget.nickName);
 
-                    await db.collection('chats').add(chatModel.toJson());
+                    await db.collection('chats_${widget.idioma}').add(chatModel.toJson());
 
 
                   }, icon:  Icon(Icons.send, color: Colors.green[400]))
